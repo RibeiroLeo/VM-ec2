@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  Myinstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: "ami-02fe94dee086c0c37"
+      InstanceType: t2.micro
+      KeyName: 1sti-training
+      #Substituível por criar direto no CF, logo mais feito.
+      SubnetId: String
+      Tags: 
+      - Key: Name
+        Value: 1sti-training
+#sECURITYGROUP manualmente, usando isso de parametro pra reeditar ao invés de usar subnets feitas pelo Console
+FormationSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Enable SSH and general HTTP Access
+      SecurityGroupIngress:
+
+        # Configure HTTP access
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+
+        # Configure (and limit) SSH access
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: !Ref LimitedSSHAccess
