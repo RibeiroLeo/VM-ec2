@@ -11,7 +11,8 @@ Resources:
       Tags: 
       - Key: Name
         Value: 1sti-training
-
+      SecurityGroupIds:
+        - !Ref AbobraSecurityGroup
   AbobraSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
