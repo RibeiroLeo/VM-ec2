@@ -1,21 +1,22 @@
 AWSTemplateFormatVersion: 2010-09-09
 Resources:
-  Myinstance:
+
+  MYabobra:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: "ami-02fe94dee086c0c37"
       InstanceType: t2.micro
       KeyName: 1sti-training
-      #Substituível por criar direto no CF, logo mais feito.
-      SubnetId: String
+      SubnetId: "subnet-0cf6a0111c61412d6"
       Tags: 
       - Key: Name
         Value: 1sti-training
-#sECURITYGROUP manualmente, usando isso de parametro pra reeditar ao invés de usar subnets feitas pelo Console
-FormationSecurityGroup:
+
+  AbobraSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
       GroupDescription: Enable SSH and general HTTP Access
+      VpcId: "vpc-084e180dbf562c386"
       SecurityGroupIngress:
 
         # Configure HTTP access
@@ -28,4 +29,4 @@ FormationSecurityGroup:
         - IpProtocol: tcp
           FromPort: 22
           ToPort: 22
-          CidrIp: !Ref LimitedSSHAccess
+          CidrIp: 0.0.0.0/0
